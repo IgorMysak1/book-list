@@ -5,7 +5,7 @@ export const RouterConfig = () => {
   return (
     <Routes>
       <Route path="/" element={<Dashboard />} />
-      <Route path="/" element={<AddBook />} />
+      <Route path="/add-book" element={<AddBook />} />
       <Route path="*" element={<Page404 />} />
     </Routes>
   );
