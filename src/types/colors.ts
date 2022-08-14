@@ -1,3 +1,5 @@
-import { themeColors } from "../theme";
-
-export type IThemeColors = keyof typeof themeColors;
+export type IColorsTheme = {
+  main: string;
+  secondary: string;
+  text: string;
+};

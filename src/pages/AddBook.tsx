@@ -1,5 +1,5 @@
 import React from "react";
 
-export const AddBook = () => {
+export const AddBook: React.FC = () => {
   return <div>AddBook</div>;
 };
