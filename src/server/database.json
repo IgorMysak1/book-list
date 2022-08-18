@@ -1,0 +1,54 @@
+{
+  "books": [
+    {
+      "id": 1,
+      "title": "Harry Potter",
+      "description": "the novels chronicle the lives of a young wizard, Harry Potter, and his friends Hermione Granger and Ron Weasley, all of whom are students at Hogwarts School of Witchcraft and Wizardry. The main story arc concerns Harry's struggle against Lord Voldemort, a dark wizard who intends to become immortal, overthrow the wizard governing body known as the Ministry of Magic and subjugate all wizards and Muggles",
+      "author": "Joanne Rowling",
+      "category": "fantasy",
+      "isbn": "7263738192623",
+      "isbnLines": "2723867132963",
+      "favorite": false
+    },
+    {
+      "id": 2,
+      "title": "All Your Perfects",
+      "description": "The #1 New York Times bestselling author of It Ends with Us—whose writing is “emotionally wrenching and utterly original” (Sara Shepard, New York Times bestselling author of the Pretty Little Liars series)—delivers a tour de force novel about a troubled marriage and the one old forgotten promise that might be able to save it.\n\nQuinn and Graham’s perfect love is threatened by their imperfect marriage. The memories, mistakes, and secrets that they have built up over the years are now tearing them apart.",
+      "author": "Colleen Hoover",
+      "category": "love novel",
+      "isbn": "4921046285912",
+      "isbnLines": "4261285210994",
+      "favorite": false
+    },
+    {
+      "id": 3,
+      "title": "Roguelike Development with JavaScript",
+      "description": "Go on an adventure and build a roguelike from scratch using JavaScript. With the help of the battle-tested Phaser library, you’ll go through all the steps to build a small, fun, playable web roguelite game. The author will guide you on how to add further features to the game such as populating the game with enemies, adding treasures, and so on. You will acquire technical knowledge about procedural generation and tile-based mapping as well as learn game design skills such as what makes dungeons fun and how to evoke an emotion in your game.",
+      "author": "Andre Alves Garzia",
+      "category": "scientific literature",
+      "isbn": "1484853260589",
+      "isbnLines": "4405356882198",
+      "favorite": false
+    },
+    {
+      "id": 4,
+      "title": "Another World Is Possible",
+      "description": "As the world confronts both the fast catastrophe of Covid and the slow crisis of climate change, we also face a third, less visible emergency: a crisis of imagination. Millions of us can picture the world going awry, yet our confident visions of the future are largely dominated by technology and hardware. Most citizens struggle to envisage how we could live better-improve our democracy, welfare, neighborhoods or education-fueling a pervasive, pessimistic resignation.",
+      "author": "Geoff Mulgan",
+      "category": "philosophical",
+      "isbn": "8192460328426",
+      "isbnLines": "4089862326421",
+      "favorite": false
+    },
+    {
+      "id": 5,
+      "title": "Rich Dad Poor Dad",
+      "description": "Rich Dad Poor Dad is Robert's story of growing up with two dads — his real father and the father of his best friend, his rich dad — and the ways in which both men shaped his thoughts about money and investing. The book explodes the myth that you need to earn a high income to be rich and explains the difference between working for money and having your money work for you.",
+      "author": "Robert T. Kiyosaki",
+      "category": "finances",
+      "isbn": "38119482746027",
+      "isbnLines": "34189220774168",
+      "favorite": false
+    }
+  ]
+}

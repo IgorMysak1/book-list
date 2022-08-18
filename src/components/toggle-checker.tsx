@@ -1,10 +1,12 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import styled from "styled-components";
 import { IColorsTheme, IToggleChecker } from "../types";
+import { Text } from "./text";
 
 interface ToggleCheckerProps {
   items: IToggleChecker[];
-  setState: Dispatch<SetStateAction<IToggleChecker[]>>;
+  setState: Dispatch<SetStateAction<string>>;
+  handleClick?: () => void;
   className?: string;
 }
 
@@ -12,24 +14,28 @@ export const ToggleChecker: React.FC<ToggleCheckerProps> = ({
   items,
   setState,
   className,
+  handleClick,
 }) => {
-  const changeActiveItem = (checkedItemIndex: number) => {
+  const [itemsState, setItemsState] = useState<IToggleChecker[]>(items);
+  const changeActiveItem = (currentItem: string, checkedItemIndex: number) => {
     const newItems = items.map((item, index) => ({
       ...item,
       checked: index === checkedItemIndex,
     }));
-    setState(newItems);
+    setState(currentItem);
+    setItemsState(newItems);
+    handleClick && handleClick();
   };
 
   return (
     <Container className={className}>
-      {items.map(({ content, checked }, index) => (
+      {itemsState.map(({ content, checked }, index) => (
         <Item
-          onClick={() => changeActiveItem(index)}
+          onClick={() => changeActiveItem(content, index)}
           key={content}
           checked={checked}
         >
-          {content}
+          <Text fz={"medium"}>{content}</Text>
         </Item>
       ))}
     </Container>

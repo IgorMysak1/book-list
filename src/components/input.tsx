@@ -25,8 +25,10 @@ export const Input: React.FC<InputProps> = ({
 };
 
 const InputStyled = styled.input`
+  height: 100%;
   width: 100%;
   border: 5px solid ${({ theme }) => theme.secondary};
+  background: ${({ theme }) => theme.main};
   outline: none;
   padding: 3px 5px;
   font-size: 16px;

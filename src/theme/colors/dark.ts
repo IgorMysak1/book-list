@@ -1,7 +1,8 @@
 import { IColorsTheme } from "../../types";
 
 export const dark = {
-  main: "#433838",
-  secondary: "#9A8787",
-  text: "red",
+  main: "#1c1c1c",
+  secondary: "#292929",
+  third: "#232121",
+  text: "#c1c1c1",
 } as IColorsTheme;

@@ -2,26 +2,38 @@ import React from "react";
 import styled from "styled-components";
 import { deviceBreakpoints } from "../styles";
 
+enum fontSize {
+  large = 36,
+  medium = 28,
+  small = 22,
+}
+
 interface TitleProps {
   children: React.ReactNode;
   color?: string;
   className?: string;
+  fz: keyof typeof fontSize;
 }
-export const Title: React.FC<TitleProps> = ({ children, color, className }) => {
+export const Title: React.FC<TitleProps> = ({
+  children,
+  color,
+  fz = "medium",
+  className,
+}) => {
   return (
-    <TitleStyle className={className} color={color}>
+    <TitleStyle className={className} color={color} fz={fontSize[fz]}>
       {children}
     </TitleStyle>
   );
 };
 
 const TitleStyle = styled.h1`
-  font-size: 30px;
+  font-size: ${({ fz }: { fz: number }) => fz}px;
   color: ${({ theme, color }) => color ?? theme.text};
   @media (${deviceBreakpoints.lg}) {
-    font-size: 24px;
+    font-size: ${({ fz }: { fz: number }) => fz - 2}px;
   }
   @media (${deviceBreakpoints.sm}) {
-    font-size: 20px;
+    font-size: ${({ fz }: { fz: number }) => fz - 4}px;
   }
 `;

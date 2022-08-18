@@ -5,4 +5,4 @@ export const GenerallyThemeColors = [
   { content: "dark", checked: false },
 ] as IToggleChecker[];
 
-export const HeaderTitle = "Welcome to world of books";
+export const HeaderTitle = "Welcome to the world of books";

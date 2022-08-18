@@ -5,20 +5,17 @@ import { Header } from "./components";
 import { AppContext } from "./hooks";
 import React, { useContext } from "react";
 import { themeColors } from "./theme";
+import { createGlobalStyle } from "styled-components";
+import { IColorsTheme } from "./types";
 
 function App() {
-  const { themes } = useContext(AppContext);
-  const findCurrentTheme = () => {
-    const theme = themes.find(({ checked }) => checked);
-    return theme?.content ?? "light";
-  };
+  const { theme } = useContext(AppContext);
   return (
-    <ThemeProvider
-      theme={themeColors[findCurrentTheme() as keyof typeof themeColors]}
-    >
+    <ThemeProvider theme={themeColors[theme as keyof typeof themeColors]}>
       <Container>
         <Header />
         <RouterConfig />
+        <GlobalStyle />
       </Container>
     </ThemeProvider>
   );
@@ -41,6 +38,12 @@ const Container = styled.div`
     max-width: none;
   }
   @media (max-width: ${breakpoints.xs}) {
-    padding: 20px 10px;
+    padding: 10px;
+  }
+`;
+
+const GlobalStyle = createGlobalStyle<{ theme: IColorsTheme }>`
+  body {
+    background: ${({ theme }) => theme.main}
   }
 `;

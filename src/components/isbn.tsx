@@ -1,17 +1,17 @@
 import React from "react";
 import styled from "styled-components";
-import { mixElements } from "../utils";
-import { Text } from "./text";
+import { Text } from "../components";
 
 interface IsbnProps {
   isbn: string[];
+  isbnLines: string[];
   className?: string;
 }
-export const Isbn: React.FC<IsbnProps> = ({ isbn, className }) => {
+export const Isbn: React.FC<IsbnProps> = ({ isbn, isbnLines, className }) => {
   return (
     <Container className={className}>
       <ContainerContent>
-        {mixElements<string>(isbn).map((number, numberIndex) => (
+        {isbnLines.map((number, numberIndex) => (
           <DoubleLine key={numberIndex}>
             {new Array(2).fill("").map((_, wayIndex) => (
               <Line
@@ -27,8 +27,10 @@ export const Isbn: React.FC<IsbnProps> = ({ isbn, className }) => {
         ))}
       </ContainerContent>
       <ContainerContent>
-        {isbn.map((number) => (
-          <IsbnNumber>{number}</IsbnNumber>
+        {isbn.map((number, index) => (
+          <IsbnNumber key={index}>
+            <Text fz={"small"}>{number}</Text>
+          </IsbnNumber>
         ))}
       </ContainerContent>
     </Container>
@@ -48,6 +50,7 @@ const IsbnNumber = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-top: 5px;
 `;
 const DoubleLine = styled.div`
   display: flex;
@@ -56,5 +59,5 @@ const Line = styled.div`
   height: 35px;
   width: ${({ width }: { width: number }) => width + 1}px;
   margin: 0 ${({ width }: { width: number }) => width / 2 + 1}px;
-  background: black;
+  background: ${({ theme }) => theme.text};
 `;

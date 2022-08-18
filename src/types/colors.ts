@@ -1,5 +1,6 @@
-export type IColorsTheme = {
+export interface IColorsTheme {
   main: string;
   secondary: string;
+  third: string;
   text: string;
-};
+}

@@ -1,29 +1,29 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
-import { Title, ToggleChecker, Image } from "../components";
+import { Title, ToggleChecker } from "../components";
 import { AppContext } from "../hooks";
 import { deviceBreakpoints } from "../styles";
-import { HeaderTitle } from "../admin";
+import { GenerallyThemeColors, HeaderTitle } from "../admin";
+import { ArrowSVG } from "../assets";
 
 export const Header: React.FC = () => {
-  const { themes, setThemes } = useContext(AppContext);
+  const { setTheme } = useContext(AppContext);
   const [isThemesOpen, setIsThemesOpen] = useState<boolean>(false);
 
   const toggleThemeBlock = () => setIsThemesOpen(!isThemesOpen);
 
   return (
     <HeaderStyled>
-      <CustomTitle>{HeaderTitle}</CustomTitle>
+      <CustomTitle fz={"large"}>{HeaderTitle}</CustomTitle>
       <Theme reverse={isThemesOpen}>
         <ImageWrapper reverse={isThemesOpen}>
-          <CustomImage
-            reverse={isThemesOpen}
-            src={"image/icons/arrow.svg"}
-            alt={"Arrow"}
-            handleClick={toggleThemeBlock}
-          />
+          <CustomImage reverse={isThemesOpen} handleClick={toggleThemeBlock} />
         </ImageWrapper>
-        <CustomToggleChecker items={themes} setState={setThemes} />
+        <CustomToggleChecker
+          items={GenerallyThemeColors}
+          setState={setTheme}
+          handleClick={toggleThemeBlock}
+        />
       </Theme>
     </HeaderStyled>
   );
@@ -40,18 +40,8 @@ const HeaderStyled = styled.header`
 
 const CustomTitle = styled(Title)`
   padding-right: 30px;
-  font-size: 36px;
-  @media (${deviceBreakpoints.lg}) {
-    font-size: 32px;
-  }
-  @media (${deviceBreakpoints.md}) {
-    font-size: 28px;
-  }
   @media (${deviceBreakpoints.sm}) {
     padding: 0;
-  }
-  @media (${deviceBreakpoints.xs}) {
-    font-size: 24px;
   }
 `;
 const Theme = styled.div`
@@ -76,10 +66,10 @@ const ImageWrapper = styled.div`
     background: ${({ theme }) => theme.secondary};
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
+    transform: translateX(1px);
   }
 `;
-const CustomImage = styled(Image)`
-  cursor: pointer;
+const CustomImage = styled(ArrowSVG)`
   transition: 0.5s;
   transform: rotate(
     ${({ reverse }: { reverse: boolean }) => (reverse ? "270deg" : "90deg")}

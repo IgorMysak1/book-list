@@ -6,3 +6,4 @@ export * from "./image";
 export * from "./header";
 export * from "./book-card";
 export * from "./isbn";
+export * from "./loader";
