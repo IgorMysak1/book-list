@@ -2,16 +2,17 @@ import styled, { ThemeProvider } from "styled-components";
 import { RouterConfig } from "./navigation";
 import { breakpoints } from "./styles";
 import { Header } from "./components";
-import { AppContext } from "./hooks";
+import { AppContext } from "./context";
 import React, { useContext } from "react";
 import { themeColors } from "./theme";
 import { createGlobalStyle } from "styled-components";
-import { IColorsTheme } from "./types";
+import { IColorsTheme, ITheme } from "./types";
 
 function App() {
   const { theme } = useContext(AppContext);
+
   return (
-    <ThemeProvider theme={themeColors[theme as keyof typeof themeColors]}>
+    <ThemeProvider theme={themeColors[theme as keyof ITheme]}>
       <Container>
         <Header />
         <RouterConfig />
@@ -44,6 +45,7 @@ const Container = styled.div`
 
 const GlobalStyle = createGlobalStyle<{ theme: IColorsTheme }>`
   body {
-    background: ${({ theme }) => theme.main}
+    background: ${({ theme }) => theme.main};
+    color: ${({ theme }) => theme.text};
   }
 `;

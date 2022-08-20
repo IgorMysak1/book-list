@@ -24,7 +24,7 @@ export const ToggleChecker: React.FC<ToggleCheckerProps> = ({
     }));
     setState(currentItem);
     setItemsState(newItems);
-    handleClick && handleClick();
+    handleClick?.();
   };
 
   return (

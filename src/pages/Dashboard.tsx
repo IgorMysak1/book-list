@@ -15,12 +15,12 @@ import {
   DashboardListOfCategories,
   DashboardTitle,
 } from "../admin";
-import { AppContext } from "../hooks";
+import { AppContext } from "../context";
 
 export const Dashboard: React.FC = () => {
   const { books } = useContext(AppContext);
   const [category, setCategory] = useState<string>("all");
-  const [wasLoadedBooks, setWasLoadedBooks] = useState<boolean>(false);
+  const [isLoadedBooks, setIsLoadedBooks] = useState<boolean>(false);
   const [valueFilterInput, setValueFilterInput] = useState<string>(
     DashboardFilterCategoriesInput.initialValue
   );
@@ -50,17 +50,15 @@ export const Dashboard: React.FC = () => {
     }
     return (
       <Books>
-        {filterBooks().map((book) => (
-          <BookCard key={book.id} {...book} />
+        {filterBooks().map((book, index) => (
+          <BookCard key={book.id + book.title} {...book} />
         ))}
       </Books>
     );
   };
 
   useEffect(() => {
-    if (books.length) {
-      setWasLoadedBooks(true);
-    }
+    if (books.length) setIsLoadedBooks(true);
   }, [books]);
   return (
     <Container>
@@ -73,12 +71,12 @@ export const Dashboard: React.FC = () => {
         <WrapperInput>
           <Input
             value={valueFilterInput}
-            setValue={setValueFilterInput}
+            setValue={(value) => setValueFilterInput(value)}
             placeholder={DashboardFilterCategoriesInput.placeholder}
           />
         </WrapperInput>
       </FilterBooks>
-      {wasLoadedBooks ? showContent() : <Loader />}
+      {isLoadedBooks ? showContent() : <Loader />}
     </Container>
   );
 };
@@ -86,7 +84,7 @@ export const Dashboard: React.FC = () => {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  padding-top: 50px;
+  padding-top: 30px;
   @media (${deviceBreakpoints.md}) {
     padding-top: 20px;
   }
@@ -112,5 +110,6 @@ const WrapperInput = styled.div`
 const Books = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-auto-rows: 1fr;
   gap: 10px;
 `;

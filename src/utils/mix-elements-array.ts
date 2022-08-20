@@ -1,4 +1,4 @@
-export const mixElements = <T>(list: T[]): T[] =>
+export const mixElementsArray = <T>(list: T[]): T[] =>
   list.reduce<T[]>((acc, curr, index) => {
     const accumulatorList = acc;
     const indexToAddElement = Math.round(Math.random() * index);

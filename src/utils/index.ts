@@ -1,1 +1,2 @@
-export * from "./mix-elements";
+export * from "./mix-elements-array";
+export * from "./mix-symbols-string";

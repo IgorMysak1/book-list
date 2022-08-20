@@ -1,12 +1,13 @@
 import { Routes, Route } from "react-router-dom";
+import { pages } from "./";
 import { Dashboard, AddBook, Page404 } from "../pages";
 
 export const RouterConfig = () => {
   return (
     <Routes>
-      <Route path="/" element={<Dashboard />} />
-      <Route path="/add-book" element={<AddBook />} />
-      <Route path="*" element={<Page404 />} />
+      {pages.map(({ path, component: Component }) => (
+        <Route key={path} path={path} element={<Component />} />
+      ))}
     </Routes>
   );
 };

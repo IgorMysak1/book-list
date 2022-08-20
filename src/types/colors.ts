@@ -3,4 +3,5 @@ export interface IColorsTheme {
   secondary: string;
   third: string;
   text: string;
+  highlight: string;
 }

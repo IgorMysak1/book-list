@@ -1,12 +1,12 @@
-type bookBody = { [key in string]: string | boolean };
+import { IBook } from "../types";
 
-export const editBookRequest = async (book: bookBody) => {
+export const updateBookRequest = async (book: IBook) => {
   const response = await fetch(`http://localhost:3001/books/${book.id}`, {
-    method: "PATCH",
-    body: JSON.stringify(book),
+    method: "PUT",
     headers: {
       "Content-type": "application/json; charset=UTF-8",
     },
+    body: JSON.stringify(book),
   });
   return await response.json();
 };

@@ -1,17 +1,17 @@
 import React from "react";
 import styled from "styled-components";
-import { Text } from "../components";
+import { Text } from "./";
 
 interface IsbnProps {
-  isbn: string[];
-  isbnLines: string[];
+  isbn: string;
+  isbnLines: string;
   className?: string;
 }
 export const Isbn: React.FC<IsbnProps> = ({ isbn, isbnLines, className }) => {
   return (
     <Container className={className}>
       <ContainerContent>
-        {isbnLines.map((number, numberIndex) => (
+        {isbnLines.split("").map((number, numberIndex) => (
           <DoubleLine key={numberIndex}>
             {new Array(2).fill("").map((_, wayIndex) => (
               <Line
@@ -27,7 +27,7 @@ export const Isbn: React.FC<IsbnProps> = ({ isbn, isbnLines, className }) => {
         ))}
       </ContainerContent>
       <ContainerContent>
-        {isbn.map((number, index) => (
+        {isbn.split("").map((number, index) => (
           <IsbnNumber key={index}>
             <Text fz={"small"}>{number}</Text>
           </IsbnNumber>
@@ -42,6 +42,7 @@ const Container = styled.div`
   flex-direction: column;
 `;
 const ContainerContent = styled.div`
+  min-height: 1.453em;
   width: 100%;
   display: flex;
   justify-content: space-around;

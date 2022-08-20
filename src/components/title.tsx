@@ -30,6 +30,7 @@ export const Title: React.FC<TitleProps> = ({
 const TitleStyle = styled.h1`
   font-size: ${({ fz }: { fz: number }) => fz}px;
   color: ${({ theme, color }) => color ?? theme.text};
+  text-transform: capitalize;
   @media (${deviceBreakpoints.lg}) {
     font-size: ${({ fz }: { fz: number }) => fz - 2}px;
   }

@@ -1,20 +1,55 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { Title, ToggleChecker } from "../components";
-import { AppContext } from "../hooks";
+import { AppContext } from "../context";
 import { deviceBreakpoints } from "../styles";
-import { GenerallyThemeColors, HeaderTitle } from "../admin";
+import { GenerallyThemeColors } from "../admin";
 import { ArrowSVG } from "../assets";
+import { Link } from "react-router-dom";
+import { pages } from "../navigation";
+import { useLocation } from "react-router-dom";
+import { IColorsTheme, IModifyBook } from "../types";
+import { initialBookState } from "../admin";
+import { addBookRequest } from "../services";
 
 export const Header: React.FC = () => {
-  const { setTheme } = useContext(AppContext);
+  const { setTheme, setModifyBook } = useContext(AppContext);
+  const location = useLocation();
   const [isThemesOpen, setIsThemesOpen] = useState<boolean>(false);
 
   const toggleThemeBlock = () => setIsThemesOpen(!isThemesOpen);
-
+  const filterPages = () => {
+    const hidePages = ["*"];
+    return pages.filter(({ path }) => !hidePages.includes(path));
+  };
+  const actionOnRoute = (path: string) => {
+    const actions = {
+      "/add-book": () =>
+        setModifyBook((prevState: IModifyBook) => ({
+          ...prevState,
+          state: initialBookState,
+          type: "add",
+          callAction: addBookRequest,
+        })),
+    };
+    if (!actions.hasOwnProperty(path)) return;
+    actions[path as keyof typeof actions]();
+  };
   return (
     <HeaderStyled>
-      <CustomTitle fz={"large"}>{HeaderTitle}</CustomTitle>
+      <Routes>
+        {filterPages().map(({ path, page }) => (
+          <CustomLink
+            to={path}
+            key={path}
+            onClick={(event) => actionOnRoute(path)}
+          >
+            <Route fz={"small"} isPageCurrent={location.pathname === path}>
+              {page}
+            </Route>
+          </CustomLink>
+        ))}
+      </Routes>
       <Theme reverse={isThemesOpen}>
         <ImageWrapper reverse={isThemesOpen}>
           <CustomImage reverse={isThemesOpen} handleClick={toggleThemeBlock} />
@@ -38,11 +73,21 @@ const HeaderStyled = styled.header`
   }
 `;
 
-const CustomTitle = styled(Title)`
-  padding-right: 30px;
-  @media (${deviceBreakpoints.sm}) {
-    padding: 0;
-  }
+const CustomLink = styled(Link)`
+  text-decoration: none;
+`;
+const Routes = styled.div`
+  display: flex;
+`;
+const Route = styled(Title)`
+  padding-right: 20px;
+  color: ${({
+    theme,
+    isPageCurrent,
+  }: {
+    theme: IColorsTheme;
+    isPageCurrent: boolean;
+  }) => (isPageCurrent ? theme.highlight : theme.text)};
 `;
 const Theme = styled.div`
   @media (${deviceBreakpoints.sm}) {

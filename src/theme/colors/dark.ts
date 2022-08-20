@@ -5,4 +5,5 @@ export const dark = {
   secondary: "#292929",
   third: "#232121",
   text: "#c1c1c1",
+  highlight: "#cf6969",
 } as IColorsTheme;

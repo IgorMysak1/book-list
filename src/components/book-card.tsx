@@ -1,10 +1,12 @@
 import React, { useContext } from "react";
-import { IBook } from "../types";
+import { IBook, IModifyBook } from "../types";
 import styled from "styled-components";
 import { Isbn, Title, Text } from "../components";
-import { deleteBookRequest, patchBookRequest } from "../services";
-import { AppContext } from "../hooks";
+import { deleteBookRequest, editBookRequest } from "../services";
+import { AppContext } from "../context";
 import { EditSVG, HeartSVG, FillHeartSVG, TrashSVG } from "../assets";
+import { updateBookRequest } from "../services";
+import { useNavigate } from "react-router-dom";
 
 export const BookCard: React.FC<IBook> = ({
   id,
@@ -16,7 +18,26 @@ export const BookCard: React.FC<IBook> = ({
   author,
   favorite,
 }) => {
-  const { books, setBooks } = useContext(AppContext);
+  const navigate = useNavigate();
+  const { books, setBooks, modifyBook, setModifyBook } = useContext(AppContext);
+  const editBook = async () => {
+    setModifyBook((prevState: IModifyBook) => ({
+      ...prevState,
+      state: {
+        id,
+        isbnLines,
+        isbn,
+        title,
+        description,
+        category,
+        author,
+        favorite,
+      },
+      callAction: updateBookRequest,
+      type: "edit",
+    }));
+    navigate("/add-book");
+  };
   const deleteBook = async (bookId: number) => {
     const newListOfBooks = books.filter(({ id }) => bookId !== id);
     setBooks(newListOfBooks);
@@ -30,39 +51,44 @@ export const BookCard: React.FC<IBook> = ({
     const body = {
       favorite: !favorite,
     };
-    await patchBookRequest(bookId, body);
+    await editBookRequest(body);
   };
+
   return (
     <Container>
       <CustomIsbn>
         <IsbnText fz={"large"}>isbn</IsbnText>
-        <Isbn isbn={isbn.split("")} isbnLines={isbnLines.split("")} />
+        <Isbn isbn={isbn} isbnLines={isbnLines} />
       </CustomIsbn>
       <ContentLayout>
         <CustomTitle fz={"small"}>{title}</CustomTitle>
-        <CustomText fz={"small"}>{description}</CustomText>
+        <CustomDescription fz={"small"}>{description}</CustomDescription>
         <BookInfo>
           <TextInfo fz={"small"}>Author: {author}</TextInfo>
           <TextInfo fz={"small"}>Category: {category}</TextInfo>
-          <Images>
-            <CustomSvg>
-              <ImageLike onClick={() => likeBook(id, favorite)}>
-                {favorite ? <FillHeartSVG /> : <HeartSVG />}
-              </ImageLike>
-            </CustomSvg>
-            <CustomSvg>
-              <EditSVG />
-            </CustomSvg>
-            <CustomSvg>
-              <TrashSVG handleClick={() => deleteBook(id)} />
-            </CustomSvg>
-          </Images>
+          {modifyBook.type === "review" && (
+            <Images>
+              <CustomSvg>
+                <ImageLike onClick={() => likeBook(id, favorite)}>
+                  {favorite ? <FillHeartSVG /> : <HeartSVG />}
+                </ImageLike>
+              </CustomSvg>
+              <CustomSvg>
+                <EditSVG handleClick={editBook} />
+              </CustomSvg>
+              <CustomSvg>
+                <TrashSVG handleClick={() => deleteBook(id)} />
+              </CustomSvg>
+            </Images>
+          )}
         </BookInfo>
       </ContentLayout>
     </Container>
   );
 };
 const Container = styled.div`
+  height: 100%;
+  width: 100%;
   background: ${({ theme }) => theme.secondary};
   border-radius: 8px;
   padding: 10px;
@@ -95,8 +121,9 @@ const CustomTitle = styled(Title)`
   overflow: hidden;
   width: 100%;
   white-space: nowrap;
+  min-height: 1.375em;
 `;
-const CustomText = styled(Text)`
+const CustomDescription = styled(Text)`
   font-size: 14px;
   padding: 5px 0 10px;
   flex: 1 1 auto;

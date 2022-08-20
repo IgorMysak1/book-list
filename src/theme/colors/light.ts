@@ -5,4 +5,5 @@ export const light = {
   secondary: "#EDEDED",
   third: "#fbfaff",
   text: "#444444",
+  highlight: "#d55c5c",
 } as IColorsTheme;
