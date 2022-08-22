@@ -3,9 +3,10 @@ import styled from "styled-components";
 import { Input, Title, Text, Button } from "../components";
 import { IBook, IModifyBook, IValidFieldsModifyingBook } from "../types";
 import { deviceBreakpoints } from "../styles";
+import { createListOfFields } from "../utils";
 
 interface FormProps {
-  fields: IValidFieldsModifyingBook[];
+  fields: IBook;
   initialState: IModifyBook;
   submitHandle: (formState: IBook) => void;
   getFormState?: (entity: IBook) => void;
@@ -19,8 +20,10 @@ export const Form: React.FC<FormProps> = ({
   getFormState,
   hideInputs,
 }) => {
-  const [formState, setFormState] =
-    useState<IValidFieldsModifyingBook[]>(fields);
+  const [formState, setFormState] = useState<IValidFieldsModifyingBook[]>(
+    createListOfFields(fields)
+  );
+
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const showValue = (fieldName: keyof IBook, value: string) => {
@@ -62,8 +65,13 @@ export const Form: React.FC<FormProps> = ({
     }));
     setFormState(newValue);
     setIsSubmitted(true);
-    if (!isValidForm()) return;
-    submitHandle(convertInStateBook(formState));
+    if (
+      initialState.type === "add" ? isValidForm() && isSubmitted : isValidForm()
+    ) {
+      setIsSubmitted(false);
+      setFormState(createListOfFields(fields));
+      submitHandle(convertInStateBook(formState));
+    }
   };
   return (
     <form onSubmit={submit}>

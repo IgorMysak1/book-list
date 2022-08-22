@@ -1,26 +1,22 @@
 import React, { useContext, useEffect, useState } from "react";
-import { BookCard, Form } from "../components";
+import { BookCard, Button, Form, Text, Title } from "../components";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { AppContext } from "../context";
 import { IBook } from "../types";
 import { deviceBreakpoints } from "../styles";
 import { addBookRequest } from "../services";
-import { initialBookState, initialValidFormModifyBook } from "../admin";
+import { initialBookState } from "../admin";
+import { ModalWindow } from "../components";
 
 export const AddBook: React.FC = () => {
+  const navigate = useNavigate();
   const { modifyBook, setModifyBook, books, setBooks } = useContext(AppContext);
   const [book, setBook] = useState<IBook>(modifyBook.state);
+  const [isOpenModalWindow, setIsOpenModalWindow] = useState(false);
 
   const getBookState = (book: IBook) => setBook(book);
-
-  const createListOfFields = () => {
-    return Object.entries(modifyBook.state).reduce<any>((acc, [key, value]) => {
-      const findBookState = initialValidFormModifyBook.find(
-        ({ field }) => field === key
-      );
-      return [...acc, { ...findBookState, value, valid: true }];
-    }, []);
-  };
+  const toggleWindow = () => setIsOpenModalWindow((prevState) => !prevState);
 
   const approveModifying = async (modifiedBook: IBook) => {
     const response = await modifyBook.callAction(modifiedBook);
@@ -31,11 +27,23 @@ export const AddBook: React.FC = () => {
             previousBook.id === modifiedBook.id ? modifiedBook : previousBook
           );
     setBooks(newBooks);
+    setIsOpenModalWindow(true);
+  };
+  const addOnMoreBook = () => {
+    setModifyBook({
+      state: initialBookState,
+      callAction: () => null,
+      type: "add",
+    });
+    toggleWindow();
+  };
+  const goTodDashboard = () => {
     setModifyBook({
       state: initialBookState,
       callAction: () => null,
       type: "review",
     });
+    navigate("/");
   };
   useEffect(() => {
     if (modifyBook.type === "review") {
@@ -47,22 +55,40 @@ export const AddBook: React.FC = () => {
       }));
     }
   }, []);
-
   return (
-    <AddBookContainer>
-      <PreViewBook>
-        <BookCard {...book} />
-      </PreViewBook>
-      <ModifyBook>
-        <Form
-          fields={createListOfFields()}
-          initialState={modifyBook}
-          submitHandle={approveModifying}
-          getFormState={getBookState}
-          hideInputs={["id", "isbnLines", "favorite"]}
-        />
-      </ModifyBook>
-    </AddBookContainer>
+    <>
+      {isOpenModalWindow && (
+        <ModalWindow closeWindow={toggleWindow}>
+          <ModalWindowContainer>
+            <ModalTitle fz={"large"}>{`Book ${
+              modifyBook.type === "add" ? "added" : "edited"
+            } successfully`}</ModalTitle>
+            {modifyBook.type === "add" && (
+              <Button handleClick={addOnMoreBook}>
+                <Text fz={"small"}>Add on more book</Text>
+              </Button>
+            )}
+            <Button handleClick={goTodDashboard}>
+              <Text fz={"small"}>Go to dashboard</Text>
+            </Button>
+          </ModalWindowContainer>
+        </ModalWindow>
+      )}
+      <AddBookContainer>
+        <PreViewBook>
+          <BookCard {...book} />
+        </PreViewBook>
+        <ModifyBook>
+          <Form
+            fields={modifyBook.state}
+            initialState={modifyBook}
+            submitHandle={approveModifying}
+            getFormState={getBookState}
+            hideInputs={["id", "isbnLines", "favorite"]}
+          />
+        </ModifyBook>
+      </AddBookContainer>
+    </>
   );
 };
 const AddBookContainer = styled.div`
@@ -87,4 +113,14 @@ const ModifyBook = styled.div`
     width: 100%;
     padding-left: 0;
   }
+`;
+const ModalWindowContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+`;
+const ModalTitle = styled(Title)`
+  margin-bottom: 50px;
 `;

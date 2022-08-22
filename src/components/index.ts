@@ -9,3 +9,4 @@ export * from "./isbn";
 export * from "./loader";
 export * from "./button";
 export * from "./form";
+export * from "./modal-window";

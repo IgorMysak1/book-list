@@ -5,4 +5,5 @@ export interface IColorsTheme {
   text: string;
   highlight: string;
   error: string;
+  backgroundShadow: string;
 }

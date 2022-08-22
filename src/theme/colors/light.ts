@@ -7,4 +7,5 @@ export const light = {
   text: "#444444",
   highlight: "#d55c5c",
   error: "#d55c5c",
+  backgroundShadow: "#444444cc",
 } as IColorsTheme;

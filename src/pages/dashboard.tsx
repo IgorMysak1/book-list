@@ -14,11 +14,13 @@ import {
   DashboardFilterCategoriesInput,
   DashboardListOfCategories,
   DashboardTitle,
+  initialBookState,
 } from "../admin";
 import { AppContext } from "../context";
+import { addBookRequest } from "../services";
 
 export const Dashboard: React.FC = () => {
-  const { books } = useContext(AppContext);
+  const { books, setModifyBook } = useContext(AppContext);
   const [category, setCategory] = useState<string>("all");
   const [isLoadedBooks, setIsLoadedBooks] = useState<boolean>(false);
   const [valueFilterInput, setValueFilterInput] = useState<string>(
@@ -60,6 +62,14 @@ export const Dashboard: React.FC = () => {
   useEffect(() => {
     if (books.length) setIsLoadedBooks(true);
   }, [books]);
+  useEffect(() => {
+    setModifyBook((prevState) => ({
+      ...prevState,
+      state: initialBookState,
+      callAction: () => null,
+      type: "review",
+    }));
+  }, []);
   return (
     <Container>
       <Title fz={"medium"}>{DashboardTitle}</Title>
@@ -112,4 +122,5 @@ const Books = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   grid-auto-rows: 1fr;
   gap: 10px;
+  padding-bottom: 20px;
 `;
