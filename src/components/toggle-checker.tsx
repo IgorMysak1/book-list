@@ -53,7 +53,6 @@ const Item = styled.div`
   padding: 6px 10px;
   border-radius: 10px;
   cursor: pointer;
-  text-transform: capitalize;
   background: ${({
     theme,
     checked,

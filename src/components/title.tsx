@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { deviceBreakpoints } from "../styles";
+import { capitalizeFirstLetter } from "../utils";
 
 enum fontSize {
   large = 36,
@@ -22,7 +23,9 @@ export const Title: React.FC<TitleProps> = ({
 }) => {
   return (
     <TitleStyle className={className} color={color} fz={fontSize[fz]}>
-      {children}
+      {typeof children === "string"
+        ? capitalizeFirstLetter(children)
+        : children}
     </TitleStyle>
   );
 };
@@ -30,7 +33,6 @@ export const Title: React.FC<TitleProps> = ({
 const TitleStyle = styled.h1`
   font-size: ${({ fz }: { fz: number }) => fz}px;
   color: ${({ theme, color }) => color ?? theme.text};
-  text-transform: capitalize;
   @media (${deviceBreakpoints.lg}) {
     font-size: ${({ fz }: { fz: number }) => fz - 2}px;
   }

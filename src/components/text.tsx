@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { capitalizeFirstLetter } from "../utils";
 
 enum fontSize {
   large = 22,
@@ -21,7 +22,9 @@ export const Text: React.FC<TextProps> = ({
 }) => {
   return (
     <TextStyle className={className} color={color} fz={fontSize[fz]}>
-      {children}
+      {typeof children === "string"
+        ? capitalizeFirstLetter(children)
+        : children}
     </TextStyle>
   );
 };

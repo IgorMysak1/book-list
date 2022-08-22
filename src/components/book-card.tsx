@@ -10,12 +10,12 @@ import { useNavigate } from "react-router-dom";
 
 export const BookCard: React.FC<IBook> = ({
   id,
-  isbnLines,
-  isbn,
   title,
   description,
-  category,
   author,
+  category,
+  isbn,
+  isbnLines,
   favorite,
 }) => {
   const navigate = useNavigate();
@@ -25,12 +25,12 @@ export const BookCard: React.FC<IBook> = ({
       ...prevState,
       state: {
         id,
-        isbnLines,
-        isbn,
         title,
         description,
         category,
         author,
+        isbn,
+        isbnLines,
         favorite,
       },
       callAction: updateBookRequest,
@@ -157,5 +157,4 @@ const TextInfo = styled(Text)`
   font-size: 14px;
   padding-top: 5px;
   text-align: left;
-  text-transform: capitalize;
 `;

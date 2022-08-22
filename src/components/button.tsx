@@ -27,5 +27,4 @@ const ButtonStyled = styled.button`
   color: ${({ theme }) => theme.text};
   padding: 10px 20px;
   cursor: pointer;
-  text-transform: capitalize;
 `;

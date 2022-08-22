@@ -6,4 +6,5 @@ export const light = {
   third: "#fbfaff",
   text: "#444444",
   highlight: "#d55c5c",
+  error: "#d55c5c",
 } as IColorsTheme;

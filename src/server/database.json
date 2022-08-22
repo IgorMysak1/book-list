@@ -11,26 +11,6 @@
       "favorite": true
     },
     {
-      "id": 2,
-      "isbnLines": "4261285210994",
-      "isbn": "4921046285912",
-      "title": "All Your",
-      "description": "The #1 New York Times bestselling author of It Ends with Us—whose writing is “emotionally wrenching and utterly original” (Sara Shepard, New York Times bestselling author of the Pretty Little Liars series)—delivers a tour de force novel about a troubled marriage and the one old forgotten promise that might be able to save it.\n\nQuinn and Graham’s perfect love is threatened by their imperfect marriage. The memories, mistakes, and secrets that they have built up over the years are now tearing them apart.",
-      "category": "love novel",
-      "author": "Colleen Hoover",
-      "favorite": false
-    },
-    {
-      "id": 3,
-      "title": "Roguelike Development with JavaScript",
-      "description": "Go on an adventure and build a roguelike from scratch using JavaScript. With the help of the battle-tested Phaser library, you’ll go through all the steps to build a small, fun, playable web roguelite game. The author will guide you on how to add further features to the game such as populating the game with enemies, adding treasures, and so on. You will acquire technical knowledge about procedural generation and tile-based mapping as well as learn game design skills such as what makes dungeons fun and how to evoke an emotion in your game.",
-      "author": "Andre Alves Garzia",
-      "category": "scientific literature",
-      "isbn": "1484853260589",
-      "isbnLines": "4405356882198",
-      "favorite": false
-    },
-    {
       "id": 4,
       "title": "Another World Is Possible",
       "description": "As the world confronts both the fast catastrophe of Covid and the slow crisis of climate change, we also face a third, less visible emergency: a crisis of imagination. Millions of us can picture the world going awry, yet our confident visions of the future are largely dominated by technology and hardware. Most citizens struggle to envisage how we could live better-improve our democracy, welfare, neighborhoods or education-fueling a pervasive, pessimistic resignation.",
@@ -41,13 +21,13 @@
       "favorite": false
     },
     {
-      "id": 18270860030821,
-      "title": "SASASAS",
-      "description": "Add description to remebeber better about book",
-      "author": "Add author",
-      "category": "What is category?",
-      "isbn": "isbn",
-      "isbnLines": "4303088697647",
+      "id": 26578005368050,
+      "title": "BBBB",
+      "description": "qqwqwqw  sddsdsdsdass sa",
+      "category": "1123",
+      "author": "qqwqwqw",
+      "isbn": "2121212121212",
+      "isbnLines": "4490876308637",
       "favorite": false
     }
   ]

@@ -50,7 +50,7 @@ export const Dashboard: React.FC = () => {
     }
     return (
       <Books>
-        {filterBooks().map((book, index) => (
+        {filterBooks().map((book) => (
           <BookCard key={book.id + book.title} {...book} />
         ))}
       </Books>

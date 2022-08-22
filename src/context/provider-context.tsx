@@ -22,7 +22,6 @@ export const AppProvider: React.FC<{
     state: initialBookState,
     callAction: () => null,
     type: "review",
-    success: false,
   });
 
   useEffect(() => {

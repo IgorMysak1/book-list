@@ -1,6 +1,5 @@
 import { Routes, Route } from "react-router-dom";
 import { pages } from "./";
-import { Dashboard, AddBook, Page404 } from "../pages";
 
 export const RouterConfig = () => {
   return (

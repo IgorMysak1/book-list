@@ -4,4 +4,5 @@ export interface IColorsTheme {
   third: string;
   text: string;
   highlight: string;
+  error: string;
 }
