@@ -6,22 +6,30 @@ interface ButtonProps {
   handleClick?: () => void;
   className?: string;
   type?: "button" | "reset" | "submit";
+  fullWidth?: boolean;
 }
 export const Button: React.FC<ButtonProps> = ({
   children,
   handleClick,
   className,
   type = "button",
+  fullWidth = false,
 }) => {
   return (
-    <ButtonStyled type={type} onClick={handleClick} className={className}>
+    <ButtonStyled
+      type={type}
+      fullWidth={fullWidth}
+      onClick={handleClick}
+      className={className}
+    >
       {children}
     </ButtonStyled>
   );
 };
 
 const ButtonStyled = styled.button`
-  width: 100%;
+  width: ${({ fullWidth }: { fullWidth: boolean }) =>
+    fullWidth ? "100%" : "fit-content"};
   border: 0;
   background: ${({ theme }) => theme.secondary};
   color: ${({ theme }) => theme.text};
